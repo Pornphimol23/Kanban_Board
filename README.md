@@ -191,17 +191,15 @@ Task 1 Task สามารถมี Notification ที่เกี่ยวข
 
 ### HTTP Status Codes
 
-| Status Code      | Usage                                       |
-| ---------------- | ------------------------------------------- |
-| 200 OK           | Request สำเร็จ                              |
-| 201 Created      | สร้างข้อมูลสำเร็จ                           |
-| 400 Bad Request  | Request ไม่ถูกต้องหรือไม่สามารถดำเนินการได้ |
-| 401 Unauthorized | Authentication ไม่สำเร็จ                    |
-| 403 Forbidden    | ไม่มีสิทธิ์เข้าถึงข้อมูล                    |
-| 404 Not Found    | ไม่พบข้อมูลที่ร้องขอ                        |
-
----
-
+| Status Code | Usage |
+| --- | --- |
+| 200 OK | Request สำเร็จ |
+| 201 Created | สร้างข้อมูลสำเร็จ |
+| 400 Bad Request | Request ไม่ถูกต้องหรือไม่สามารถดำเนินการได้ |
+| 401 Unauthorized | Authentication ไม่สำเร็จ |
+| 403 Forbidden | ไม่มีสิทธิ์เข้าถึงข้อมูล |
+| 404 Not Found | ไม่พบข้อมูลที่ร้องขอ |
+| 422 Unprocessable Entity | ข้อมูล Request ไม่ผ่าน Validation |
 ## 6. Security
 
 ระบบมีการจัดการด้านความปลอดภัยในส่วน Authentication, Authorization และการจัดการข้อมูล ดังนี้
@@ -230,7 +228,7 @@ Task 1 Task สามารถมี Notification ที่เกี่ยวข
 
 - ใช้ **Pydantic** สำหรับ Validate ข้อมูล Request
 - ตรวจสอบรูปแบบและข้อมูลที่จำเป็นก่อนเข้าสู่ Business Logic
-- หากข้อมูลไม่ถูกต้อง ระบบจะส่ง HTTP 400/422 ตามลักษณะของ Validation หรือ Request Error
+- หากข้อมูลที่ส่งมาไม่ผ่าน Validation ระบบจะส่ง HTTP 422 และหาก Request ไม่สามารถดำเนินการได้ตามกฎของระบบ ระบบจะส่ง HTTP 400
 
 ### Sensitive Information
 
