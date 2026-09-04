@@ -149,56 +149,56 @@ Task 1 Task สามารถมี Notification ที่เกี่ยวข
 
 ### Authentication
 
-| Method | Endpoint | Request | Response |
-| --- | --- | --- | --- |
-| POST | `/auth/register` | `RegisterRequest` | User information |
-| POST | `/auth/login` | `LoginRequest` | Access Token |
+| Method | Endpoint         | Request           | Response         |
+| ------ | ---------------- | ----------------- | ---------------- |
+| POST   | `/auth/register` | `RegisterRequest` | User information |
+| POST   | `/auth/login`    | `LoginRequest`    | Access Token     |
 
 ### Board
 
-| Method | Endpoint | Request | Response |
-| --- | --- | --- | --- |
-| GET | `/boards` | - | Board list |
-| POST | `/boards` | `BoardCreateRequest` | Created Board |
-| GET | `/boards/{board_id}` | - | Board information |
-| PUT | `/boards/{board_id}` | `BoardUpdateRequest` | Updated Board |
-| DELETE | `/boards/{board_id}` | - | Success message |
-| POST | `/boards/{board_id}/members` | `InviteMemberRequest` | Member information |
+| Method | Endpoint                     | Request               | Response           |
+| ------ | ---------------------------- | --------------------- | ------------------ |
+| GET    | `/boards`                    | -                     | Board list         |
+| POST   | `/boards`                    | `BoardCreateRequest`  | Created Board      |
+| GET    | `/boards/{board_id}`         | -                     | Board information  |
+| PUT    | `/boards/{board_id}`         | `BoardUpdateRequest`  | Updated Board      |
+| DELETE | `/boards/{board_id}`         | -                     | Success message    |
+| POST   | `/boards/{board_id}/members` | `InviteMemberRequest` | Member information |
 
 ### Column
 
-| Method | Endpoint | Request | Response |
-| --- | --- | --- | --- |
-| POST | `/boards/{board_id}/columns` | `ColumnCreateRequest` | Created Column |
-| PUT | `/columns/{column_id}` | `ColumnUpdateRequest` | Updated Column |
-| DELETE | `/columns/{column_id}` | - | Success message |
+| Method | Endpoint                     | Request               | Response        |
+| ------ | ---------------------------- | --------------------- | --------------- |
+| POST   | `/boards/{board_id}/columns` | `ColumnCreateRequest` | Created Column  |
+| PUT    | `/columns/{column_id}`       | `ColumnUpdateRequest` | Updated Column  |
+| DELETE | `/columns/{column_id}`       | -                     | Success message |
 
 ### Task
 
-| Method | Endpoint | Request | Response |
-| --- | --- | --- | --- |
-| POST | `/columns/{column_id}/tasks` | `TaskCreateRequest` | Created Task |
-| PUT | `/tasks/{task_id}` | `TaskUpdateRequest` | Updated Task |
-| DELETE | `/tasks/{task_id}` | - | Success message |
-| PUT | `/tasks/{task_id}/move` | `TaskMoveRequest` | Moved Task |
-| POST | `/tasks/{task_id}/assignees` | `TaskAssignRequest` | Assignment information + Notification |
+| Method | Endpoint                     | Request             | Response                              |
+| ------ | ---------------------------- | ------------------- | ------------------------------------- |
+| POST   | `/columns/{column_id}/tasks` | `TaskCreateRequest` | Created Task                          |
+| PUT    | `/tasks/{task_id}`           | `TaskUpdateRequest` | Updated Task                          |
+| DELETE | `/tasks/{task_id}`           | -                   | Success message                       |
+| PUT    | `/tasks/{task_id}/move`      | `TaskMoveRequest`   | Moved Task                            |
+| POST   | `/tasks/{task_id}/assignees` | `TaskAssignRequest` | Assignment information + Notification |
 
 ### Notification
 
-| Method | Endpoint | Request | Response |
-| --- | --- | --- | --- |
-| GET | `/notifications` | - | Notification list |
+| Method | Endpoint         | Request | Response          |
+| ------ | ---------------- | ------- | ----------------- |
+| GET    | `/notifications` | -       | Notification list |
 
 ### HTTP Status Codes
 
-| Status Code | Usage |
-| --- | --- |
-| 200 OK | Request สำเร็จ |
-| 201 Created | สร้างข้อมูลสำเร็จ |
-| 400 Bad Request | Request ไม่ถูกต้องหรือไม่สามารถดำเนินการได้ |
-| 401 Unauthorized | Authentication ไม่สำเร็จ |
-| 403 Forbidden | ไม่มีสิทธิ์เข้าถึงข้อมูล |
-| 404 Not Found | ไม่พบข้อมูลที่ร้องขอ |
+| Status Code      | Usage                                       |
+| ---------------- | ------------------------------------------- |
+| 200 OK           | Request สำเร็จ                              |
+| 201 Created      | สร้างข้อมูลสำเร็จ                           |
+| 400 Bad Request  | Request ไม่ถูกต้องหรือไม่สามารถดำเนินการได้ |
+| 401 Unauthorized | Authentication ไม่สำเร็จ                    |
+| 403 Forbidden    | ไม่มีสิทธิ์เข้าถึงข้อมูล                    |
+| 404 Not Found    | ไม่พบข้อมูลที่ร้องขอ                        |
 
 ---
 
@@ -270,16 +270,21 @@ Database ประกอบด้วย 8 ตารางหลัก ได้�
 โดยใช้ Foreign Key เพื่อรักษาความสัมพันธ์และความถูกต้องของข้อมูล
 
 ### Pydantic
+
 ใช้ Pydantic สำหรับ Validate ข้อมูล Request ก่อนเข้าสู่ Business Logic ช่วยลดการประมวลผลข้อมูลที่ไม่ถูกต้องและทำให้ API มีรูปแบบข้อมูลที่ชัดเจน
+
 ### Database Design
+
 ออกแบบ Database โดยแยกข้อมูลตาม Entity และใช้ตารางกลางสำหรับความสัมพันธ์แบบ Many-to-Many เช่น
+
 - `board_members` สำหรับความสัมพันธ์ระหว่าง User และ Board
 - `task_assignees` สำหรับความสัมพันธ์ระหว่าง User และ Task
-ช่วยให้โครงสร้างข้อมูลเป็นระบบและลดข้อมูลซ้ำซ้อน
+  ช่วยให้โครงสร้างข้อมูลเป็นระบบและลดข้อมูลซ้ำซ้อน
 
 ---
 
 ## 8. API Documentation
+
 ระบบใช้ **FastAPI Swagger UI** สำหรับแสดงรายละเอียดและทดสอบ RESTful API
 สามารถเปิด Swagger UI ได้ที่:http://127.0.0.1:8000/docs
 
@@ -295,6 +300,7 @@ Swagger UI แสดงรายละเอียดของ API ได้แ�
 - Authentication สำหรับ Protected API
 
 ### API Categories
+
 - **Authentication**
   - Register
   - Login
@@ -324,9 +330,12 @@ Swagger UI แสดงรายละเอียดของ API ได้แ�
 
 Protected API ใช้ JWT Bearer Token ผ่าน Authorization Header
 Authorization: Bearer <access_token>
+
 ---
 
 ## 9. Project Structure
+
+```text
 Kanban_Board/
 │
 ├── backend/
@@ -359,27 +368,25 @@ Kanban_Board/
 
 ### Backend
 
-| File | Description |
-| --- | --- |
-| `main.py` | FastAPI Application, API Endpoints และ Business Logic |
-| `database.py` | Database Connection และ SQLAlchemy Session |
-| `models.py` | SQLAlchemy Database Models |
-| `schemas.py` | Pydantic Request / Response Schemas |
-| `auth.py` | Password Hashing และ JWT Authentication |
-| `__init__.py` | กำหนดให้ `backend` เป็น Python Package |
+| File          | Description                                           |
+| ------------- | ----------------------------------------------------- |
+| `main.py`     | FastAPI Application, API Endpoints และ Business Logic |
+| `database.py` | Database Connection และ SQLAlchemy Session            |
+| `models.py`   | SQLAlchemy Database Models                            |
+| `schemas.py`  | Pydantic Request / Response Schemas                   |
+| `auth.py`     | Password Hashing และ JWT Authentication               |
+| `__init__.py` | กำหนดให้ `backend` เป็น Python Package                |
 
 ### Frontend
 
-| File | Description |
-| --- | --- |
-| `App.jsx` | React Application และหน้าการทำงานหลัก |
-| `App.css` | Styling ของ Application |
-| `main.jsx` | Entry Point ของ React Application |
-| `index.css` | Global CSS |
-| `package.json` | Frontend Dependencies และ Scripts |
-| `vite.config.js` | Vite Configuration |
-
----
+| File             | Description                           |
+| ---------------- | ------------------------------------- |
+| `App.jsx`        | React Application และหน้าการทำงานหลัก |
+| `App.css`        | Styling ของ Application               |
+| `main.jsx`       | Entry Point ของ React Application     |
+| `index.css`      | Global CSS                            |
+| `package.json`   | Frontend Dependencies และ Scripts     |
+| `vite.config.js` | Vite Configuration                    |
 
 ## 10. How to Run
 
@@ -392,19 +399,21 @@ Kanban_Board/
 ### 1. Configure Environment Variables
 
 สร้างไฟล์ `.env` ที่ Root ของ Project และกำหนดค่าที่จำเป็นสำหรับ Backend
+
 ```env
 DATABASE_URL=your_database_url
 SECRET_KEY=your_secret_key
 ```
+
 ### 2. Run Backend
 
 เปิด Terminal ที่ Root ของ Project:
-cd backend
-uvicorn main:app --reload
+uvicorn backend.main:app --reload
 Backend จะทำงานที่:http://127.0.0.1:8000
 สามารถตรวจสอบ API และทดสอบผ่าน Swagger UI ได้ที่:http://127.0.0.1:8000/docs
 
 ### 3. Run Frontend
+
 เปิด Terminal ใหม่ที่ Root ของ Project:
 cd frontend
 npm install
