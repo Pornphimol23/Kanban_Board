@@ -8,7 +8,7 @@ from backend.auth import (
     hash_password,
     verify_password,
 )
-from backend.database import get_db
+from backend.database import get_db import Base, engine, get_db
 from backend.models import (
     Board,
     BoardMember,
@@ -38,6 +38,7 @@ app = FastAPI(
     description="Backend API for Kanban Board",
     version="1.0.0",
 )
+Base.metadata.create_all(bind=engine)
 
 # CORS
 app.add_middleware(
